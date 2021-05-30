@@ -7,10 +7,12 @@ const {errorHandler}=require("./middleware/error")
 const connectDB=require("./config/db")
 const dotenv=require("dotenv");
 const morgan = require("morgan");
+var cors = require('cors')
 
 dotenv.config({path:'./config/config.env'})
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
+app.use(cors())
 
 connectDB()
 app.use(morgan('dev'))
