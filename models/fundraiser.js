@@ -26,6 +26,11 @@ const fundRaiserSchema = mongoose.Schema({
     ref: "User",
     required: true,
   },
+  avatar: {
+    type: String,
+    default: "default.jpg",
+    trim: true,
+  },
   target: {
     type: String,
     required: [true, "Please add a target Amount"],
@@ -49,5 +54,4 @@ const fundRaiserSchema = mongoose.Schema({
   },
 });
 
-
-module.exports=mongoose.model('FundRaiser',fundRaiserSchema)
+module.exports = mongoose.model("FundRaiser", fundRaiserSchema);
