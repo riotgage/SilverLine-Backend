@@ -12,7 +12,7 @@ exports.errorHandler=(error,req,res,next)=>{
         console.log(`${error.key}`)
         err=new errorResponse(message,400)
     }
-    res.status(err.statusCode || 500).json({
+    res.status(err.statusCode || 400).json({
         success:false,
         error:err.message || "Server Error"    
     });
