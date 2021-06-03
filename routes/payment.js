@@ -8,6 +8,7 @@ router.post("/pay", (req, res) => {
     "test_b32e278263c9e6eb06db4b0d75e",
     "test_4f6d392cc6df3621c36c41751d5"
   );
+  Insta.isSandboxMode(true);
   const data = new Insta.PaymentData();
 
   data.purpose = req.data.purpose;
