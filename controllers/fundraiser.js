@@ -68,6 +68,15 @@ exports.getFundraiser = async (req, res, next) => {
   }
 };
 
+exports.getMyFundraisers=async (req, res, next) => {
+  var email=req.user.email;
+  let query=Fundraiser.find({
+    email
+  })
+  query.limit(3);
+  const fundraisers = await query;
+    res.status(200).json({ fundraisers});
+}
 //@desc Create new Fundraiser
 //@Route POST /api/v1/fundraiser/
 //@access Private
