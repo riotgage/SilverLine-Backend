@@ -8,7 +8,16 @@ const multer = require("multer");
 //@access Public
 exports.getFundraisers = async (req, res, next) => {
   try {
-    let query = Fundraiser.find();
+
+    var category=req.body.category;
+    console.log(category);
+    let query;
+    if(category){
+      query=Fundraiser.find({
+        purpose:{$in:category}
+      })
+    }else
+      query = Fundraiser.find();
     const page = parseInt(req.query.page, 10) || 1;
     const limit = 2;
     const startIndex = limit * (page - 1);
