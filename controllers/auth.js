@@ -47,10 +47,6 @@ exports.logout=function(req, res,next){
     })
 }
 
-//@desc Get Logged in User
-//@Route GET /api/v1/auth/login
-//@access Public
-
 exports.getCurrentUser=async(req,res,next)=>{
     try{
         if(!req.user){
@@ -66,6 +62,26 @@ exports.getCurrentUser=async(req,res,next)=>{
     }
 }
 
+
+//@desc Update User Password
+//@Route PUT /api/v1/auth/updatePassword
+//@access Private
+
+exports.updateUserPassword=async(req,res,next)=>{
+    try{
+        const user=await User.findById(req.user.id).select('+password')
+        console.log(req);
+
+        if(!(await user.authPassword(req.body.currentPassword))){
+            return next(new errorResponse("Password is not correct",404))
+        }
+        user.password=req.body.newPassword
+        await user.save()
+        sendResponse(user,200,res)
+    }catch(error){
+        next(error);
+    }
+}
 
 const sendResponse =(user,statusCode,res)=>{
     const token=user.getJWTSignature();
