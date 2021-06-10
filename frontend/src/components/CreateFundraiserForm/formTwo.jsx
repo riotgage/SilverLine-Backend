@@ -37,7 +37,7 @@ const useStyles = makeStyles({
 
 const FormTwo = (props) => {
   const classes = useStyles();
-  let { formValues, handleChange, handleNext, handlePrev } = props;
+  let { formValues, handleChange, handleNext, handlePrev, getImage } = props;
   const [errors, setErrors] = useState({});
   const validate = () => {
     let temp = { ...errors };
@@ -76,11 +76,7 @@ const FormTwo = (props) => {
             </div>
             <div className="media-upload">
               <div className="upload-button">
-                <TextField
-                  variant="outlined"
-                  type="file"
-                  onChange={handleChange("media")}
-                >
+                <TextField variant="outlined" type="file" onChange={getImage()}>
                   {" "}
                   <PhotoCameraRoundedIcon style={{ marginRight: "0.5rem" }} />
                 </TextField>

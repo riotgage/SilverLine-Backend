@@ -42,6 +42,12 @@ class CreateFundraiser extends Component {
     this.setState({ step: step - 1 });
   };
 
+  getImage = () => (e) => {
+    const file = e.target.files;
+    this.setState({ media: file[0] });
+    console.log(file);
+  };
+
   handleChange = (input) => (e) => {
     console.log(input);
     this.setState({ [input]: e.target.value });
@@ -160,6 +166,7 @@ class CreateFundraiser extends Component {
               handleNext={this.handleNext}
               handlePrev={this.handlePrev}
               handleChange={this.handleChange}
+              getImage={this.getImage}
             />
           );
         case 2:
