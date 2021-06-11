@@ -11,33 +11,37 @@ exports.getFundraisers = async (req, res, next) => {
 
     var category=req.body.category;
     console.log(category);
+    let pagination = {};
+
     let query;
     if(category){
       query=Fundraiser.find({
         purpose:{$in:category}
       })
-    }else
+    }else{
       query = Fundraiser.find();
-    const page = parseInt(req.query.page, 10) || 1;
-    const limit = 2;
-    const startIndex = limit * (page - 1);
-    const endIndex = page * limit;
-    const total = await Fundraiser.countDocuments();
-    query.skip(startIndex).limit(limit);
-    const pagination = {};
-
-    if (endIndex < total) {
-      pagination.next = {
-        page: page + 1,
-        limit,
-      };
     }
+    const page = parseInt(req.query.page, 10);
+    if(page){
+      const limit = 2;
+      const startIndex = limit * (page - 1);
+      const endIndex = page * limit;
+      const total = await Fundraiser.countDocuments();
+      query.skip(startIndex).limit(limit);
 
-    if (startIndex > 0) {
-      pagination.prev = {
-        page: page - 1,
-        limit,
-      };
+      if (endIndex < total) {
+        pagination.next = {
+          page: page + 1,
+          limit,
+        };
+      }
+
+      if (startIndex > 0) {
+        pagination.prev = {
+          page: page - 1,
+          limit,
+        };
+      }
     }
     const fundraisers = await query;
     res.status(200).json({ fundraisers, pagination });
@@ -75,12 +79,12 @@ exports.getMyFundraisers=async (req, res, next) => {
   })
   query.limit(3);
   const fundraisers = await query;
-    res.status(200).json({ fundraisers});
+  res.status(200).json({ fundraisers});
 }
+
 //@desc Create new Fundraiser
 //@Route POST /api/v1/fundraiser/
 //@access Private
-
 const uploadDir = path.join(__dirname, "../uploads");
 
 var storage = multer.diskStorage({
@@ -94,6 +98,7 @@ var storage = multer.diskStorage({
     cb(null, req.name);
   },
 });
+
 var upload = multer({ storage: storage }).single("avatar");
 
 exports.createFundraiser = async (req, res, next) => {
