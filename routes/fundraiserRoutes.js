@@ -6,7 +6,7 @@ const {protect}=require("../middleware/protect")
 router.post('/create',protect,createFundraiser);
 router.get('/all',getFundraisers);
 router.post('/updateimage',protect,updateImage) 
-router.get('/getImage',protect,getImage)
+router.get('/getImage',getImage)
 router.get('/mycampaigns',protect,getMyFundraisers);
 router.get('/:id',getFundraiser);
 module.exports = router 
