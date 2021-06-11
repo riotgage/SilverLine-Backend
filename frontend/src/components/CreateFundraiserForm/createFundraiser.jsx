@@ -28,7 +28,6 @@ class CreateFundraiser extends Component {
     desc: "",
     benefeciaryType: "",
     benefeciaryName: "",
-    cause: "",
     media: "",
     city: "",
   };
@@ -61,7 +60,6 @@ class CreateFundraiser extends Component {
       desc,
       benefeciaryType,
       benefeciaryName,
-      cause,
       media,
       city,
     } = this.state;
@@ -100,7 +98,6 @@ class CreateFundraiser extends Component {
       desc: "",
       benefeciaryType: "",
       benefeciaryName: "",
-      cause: "",
       media: "",
       city: "",
     });
@@ -110,9 +107,7 @@ class CreateFundraiser extends Component {
     this.setState({ editorState: editorState });
     let check;
     check = draftToHtml(convertToRaw(editorState.getCurrentContent()));
-    //console.log(check);
     this.setState({ desc: check });
-    //this.state.desc = check;
   };
 
   render() {
@@ -126,7 +121,6 @@ class CreateFundraiser extends Component {
       desc,
       benefeciaryType,
       benefeciaryName,
-      cause,
       media,
       city,
     } = this.state;
@@ -138,7 +132,6 @@ class CreateFundraiser extends Component {
       desc,
       benefeciaryType,
       benefeciaryName,
-      cause,
       media,
       city,
     };
@@ -215,27 +208,6 @@ class CreateFundraiser extends Component {
             </Step>
           ))}
         </Stepper>
-        <>
-          {step === steps.length ? (
-            "The Steps Completed"
-          ) : (
-            <>
-              {getStepsContent(step)}
-              <Button onClick={this.handleNext}>
-                {step === steps.length - 1 ? "Finish" : "Next"}
-              </Button>
-            </>
-          )}
-        </>
-        <>
-          {step > 0 ? (
-            <>
-              <Button onClick={this.handlePrev}>Back</Button>
-            </>
-          ) : (
-            ""
-          )}
-        </>
       </div>
     );
   }

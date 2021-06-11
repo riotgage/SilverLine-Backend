@@ -34,13 +34,12 @@ const useStyles = makeStyles({
 
 const FormOne = (props) => {
   const classes = useStyles();
-  let { formValues, handleChange, handleNext, handleSubmit } = props;
+  let { formValues, handleChange, handleNext } = props;
   const [errors, setErrors] = useState({});
 
   const validate = () => {
     let temp = { ...errors };
     temp.title = formValues.title ? "" : "This field is required";
-    temp.cause = formValues.cause ? "" : "This field is required";
     if (!formValues.target) {
       temp.target = "This field is required";
     } else {
@@ -197,19 +196,8 @@ const FormOne = (props) => {
             />
           )}
 
-          <TextField
-            label="Mention your cause"
-            variant="outlined"
-            className={classes.inputField}
-            defaultValue={formValues.cause}
-            name="cause"
-            onChange={handleChange("cause")}
-            error={errors.cause ? true : false}
-            helperText={errors.cause ? "This Field is Required" : ""}
-          />
           {!formValues.category ||
-          !formValues.cause ||
-          !formValues.benefeciary ||
+          !formValues.benefeciaryType ||
           !formValues.target ||
           !formValues.title ? (
             <>
