@@ -2,6 +2,7 @@ const express=require("express")
 const app = express()
 const authRoutes=require("./routes/authRoutes")
 const fundraiserRoutes=require("./routes/fundraiserRoutes")
+const paymentRoutes=require("./routes/paymentRoute")
 const PORT=process.env.PORT || 5000;
 const {errorHandler}=require("./middleware/error")
 const connectDB=require("./config/db")
@@ -19,6 +20,7 @@ app.use(morgan('dev'))
 
 app.use("/api/v1/user/auth",authRoutes);
 app.use("/api/v1/fundraisers",fundraiserRoutes);
+app.use("/api/v1/pay",paymentRoutes);
 
 app.get("/",(req,res)=>{
     res.send("<h1>This is the backend for silverline</h1>")
