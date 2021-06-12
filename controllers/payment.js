@@ -15,16 +15,16 @@ exports.payment = async (req, res, next) => {
   data.email = req.body.email;
   data.phone = req.body.phone;
   data.send_email = false;
-  data.webhook = "http:www.example.com/webhook/";
+  data.webhook = req.body.webhook_url;
   data.allowed_repeated_payments = false;
-
   Insta.createPayment(data, function (error, response) {
     if (error) {
       console.log(error);
+      next(error);
     } else {
       const responseData = JSON.parse(response);
-      const redirectUrl = responseData.payment_request.longurl;
       console.log(response);
+      const redirectUrl = responseData.payment_request.longurl;
       res.status(200).json(redirectUrl);
     }
   });
@@ -38,3 +38,20 @@ exports.redirect = async (req, res, next) => {
     return res.redirect("http://localhost:3000/");
   }
 };
+
+
+exports.donate=async(req,res,next)=>{
+  const user=req.user;
+  try{ 
+    const fundraiser = await Fundraiser.findById(req.body.id);
+    user.totalDonation=(parseInt(user.totalDonation)+req.body.donation).toString();
+    await user.save();
+    res.status(200).json({
+      success: true,
+      fundraiser: fundraiser,
+      user:user
+    });
+  }catch(error){
+    next(error);
+  }
+}
