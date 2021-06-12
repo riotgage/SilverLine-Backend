@@ -35,9 +35,17 @@ const fundRaiserSchema = mongoose.Schema({
     type: String,
     required: [true, "Please add a target Amount"],
   },
+  totalRaised:{
+    type:"String",
+    default:"0"
+  },
   beneficiary: {
     type: String,
     required: [true, "Please add a Beneficiary"],
+  },
+  beneficiaryName:{
+    type:String,
+    required: [true, "Please add a Beneficiary Name"]
   },
   city: {
     type: String,

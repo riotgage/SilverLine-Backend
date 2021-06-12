@@ -27,6 +27,10 @@ const userSchema = mongoose.Schema({
       createdAt: {
         type: Date,
         default: Date.now(), 
+      },
+      totalDonation:{
+        type:String,
+        default:"0"
       }
 })
 
