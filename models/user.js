@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const errorResponse=require('../utils/errorResponse');
 
 const userSchema = mongoose.Schema({
-      name:{
+      name:{ 
         type: String,
         required: [true, "Please add a name"],
       },

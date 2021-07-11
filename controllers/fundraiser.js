@@ -103,7 +103,7 @@ var upload = multer({ storage: storage }).single("avatar");
 
 exports.createFundraiser = async (req, res, next) => {
   try {
-    upload(req, res, async function (err) {
+    upload(req, res, async function (err) { 
       if (err) {
         throw new Error(JSON.stringify(err));
       }
@@ -112,7 +112,7 @@ exports.createFundraiser = async (req, res, next) => {
       console.log(obj);
       obj.avatar = req.name;
       let fundraiser = await Fundraiser.create(obj);
-      res.send({
+      res.send({ 
         success: true,
         fundraiser: fundraiser,
       });
